@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div id="view1">{{ msg }}</div>
+    <div id="view2">{{ msg }}</div>
+    <div id="view3">{{ count }}</div>
+    <button @click="count++">클릭</button>
+  </div>
+  <div id="view4">{{ msg }}</div> <!--app이 관리하는 영역 밖이므로 관리X-->
+  <script>
+    // document.querySelector("#app").textContent = "안녕 vue js"
+    // new Vue({
+    //   el: "#app",
+    //   data: {
+    //     msg: "Hello Vuejs!!!",
+    //   },
+    // });  // 생성자
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        msg: "Hello Vuejs!!!",
+        count: 0,
+      },
+    }); // 생성자
+
+    console.log(app);
+
+    // let a, b;
+    // function Test(a,b){
+    //   this.a = a;
+    //   this.b = b;
+    // }
+    // let a1  = new Test(10,20);
+
+  </script>
+</body>
+</html>
