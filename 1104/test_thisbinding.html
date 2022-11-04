@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- axios 모듈 -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  
+  <script>
+    console.log("전역 this : ", this) // this default는 window 객체
+
+    // 함수
+    function a(){
+      console.log("a() 실행");
+      console.log("함수의 this : ", this);
+    }
+    a();
+
+    // 메서드 - 객체의 속성의 값으로 담긴 함수
+    const obj = {
+      func1: function(){
+        console.log("메서드의 this : ", this) // this가 obj로 바뀜
+      },
+      arrow1:()=>{
+        console.log("arrow 메서드에서 this : ", this);  
+        // arrow  function을 쓸 때는 this가 바인딩이 안 된다.
+      },
+      
+      variable : this
+    };
+
+    obj.func1();
+    obj.arrow1();
+    console.log("variable의 this : ", obj.variable) // 여기서 this는 window
+
+    /*
+      this는 메서드에서 자신이 속해있는 객체에 바인딩 됨.
+      누가 해당 메서드를 호출하느냐에 따라 바인딩이 달라진다.
+      - arrow function의 경우 this가 바인딩 되지 않는다. 
+    */
+
+    /*
+    콜백함수 내부에서의 this는 정의하지 않은 경우 전역 객체(window객체)를 참조.
+    arrow function은 자기를 감싸는 애 기준, function은 자신을 호출하는 애 기준
+    */
+
+    // 원하는 this를 바인딩 하는 법
+    let newFunc = a.bind(obj);
+    newFunc(); 
+
+    let vm = new Vue({
+      data:{},
+      created:()=>{
+        // console.log(this);
+        this.Vue.test2();
+        this.test();
+      },
+      methods: {
+        test: ()=>{
+          console.log(this)
+        },  
+        test2(){
+          console.log(this)
+        },
+      },
+    });
+
+    vm.test();
+    vm.test2();
+
+  </script>
+</body>
+</html>

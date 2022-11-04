@@ -41,8 +41,8 @@
           <label for="description">설명</label>
           <div class="view">{{book.description}}</div>
           <div style="padding-top: 15px">
-            <button class="btn btn-warning">수정</button>
-            <button class="btn btn-danger">삭제</button>
+            <button class="btn btn-warning" @click="modifyBook">수정</button>
+            <button class="btn btn-danger" @click="deleteBook">삭제</button>
             <button class="btn btn-primary">목록</button>
           </div>
         </div>
@@ -60,13 +60,57 @@
         data:{
           book:{},
         },
-        created(){
-          axios.get("http://localhost:9000/api/books/"+isbn)
-          .then((result)=>{
-            this.book = result.data;
-          })
-          
+        // created(){
+        //   axios.get("http://localhost:9000/api/books/"+isbn)
+        //   .then((result)=>{
+        //     this.book = result.data;
+        //   })
 
+        async created(){
+          let result = await axios.get("http://localhost:9000/api/books/"+isbn);
+          this.book = result.data;
+        },
+        methods:{
+          async deleteBook(){
+            // isbn 정보 가져와서 삭제 요청 보내기
+            
+            setTimeout(function(){
+              // this는? window
+              // this로 vue를 쓰고 싶으면 arrow function 쓰기
+            })
+
+
+            try{
+              await axios.delete("http://localhost:9000/api/books/"+isbn);
+              // 삭제 성공 시
+              // 목록 페이지로 이동, 삭제 성공 알림
+              alert("삭제 성공");
+              location.href="list.html";
+            }catch(error){
+              // 삭제 실패 시
+              // 삭제 실패 알림 
+              alert("삭제 실패");
+            }
+
+            // axios.delete("http://localhost:9000/api/books/"+isbn)
+            // .then(()=>{
+            //   // 삭제 성공 시
+            //   // 목록 페이지로 이동, 삭제 성공 알림
+            //   alert("삭제 성공");
+            //   location.href="list.html";
+            // })
+            // .catch(()=>{
+            //   // 삭제 실패 시
+            //   // 삭제 실패 알림 
+            //   alert("삭제 실패");
+            // })
+            
+          },
+
+          async modifyBook(){
+            // isbn 정보를 가지고 modify 페이지로 이동하기
+            location.href="modify.html?isbn="+isbn;
+          }, 
         }
       });
 

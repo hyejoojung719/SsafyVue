@@ -12,6 +12,11 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+
+    <!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios 모듈 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
@@ -26,16 +31,16 @@
         <h1 class="underline">SSAFY 도서 수정</h1>
         <div class="regist_form">
           <label for="isbn">도서번호</label>
-          <input type="text" id="isbn" name="isbn" readonly />
+          <input type="text" id="isbn" name="isbn" v-model:value="book.isbn" readonly />
           <br />
           <label for="title">도서명</label>
-          <input type="text" id="title" name="title" />
+          <input type="text" id="title" name="title" v-model:value="book.title"/>
           <br />
           <label for="author">저자</label>
-          <input type="text" id="author" name="author" />
+          <input type="text" id="author" name="author" v-model:value="book.author"/>
           <br />
           <label for="price">가격</label>
-          <input type="number" id="price" name="price" />
+          <input type="number" id="price" name="price" v-model:value="book.price"/>
           <br />
           <label for="description">설명</label>
           <br />
@@ -44,13 +49,49 @@
             name="description"
             cols="35"
             rows="5"
+            v-model="description"
+            v-model:value="book.description"
           ></textarea>
           <br />
-          <button class="btn btn-warning">수정</button>
+          <button class="btn btn-warning" @click="modifyBook">수정</button>
           <button class="btn btn-primary">목록</button>
         </div>
       </div>
     </div>
-    <script></script>
+    <script>
+      //URL로 부터 파라미터 추출하기
+      const params = new URL(document.location).searchParams;
+      console.log(params);
+      const isbn = params.get("isbn");
+
+      new Vue({
+        el : "#app",
+        data : {
+          book : {},
+        },
+        async created() {
+          // Book 정보 가져오기
+          let result = await axios.get("http://localhost:9000/api/books/"+isbn);
+          this.book = result.data;
+        },
+        methods : {
+          async modifyBook(){
+            try{
+              await axios.put("http://localhost:9000/api/books/"+isbn, this.book);
+              // 수정 성공 시
+              // 목록 페이지로 이동, 수정 성공 알림
+              alert("수정 성공");
+              location.href="list.html";
+            }catch(error){
+              // 수정 실패 시
+              // 수정 실패 알림 
+              alert("수정 실패");
+            }
+          }
+        },
+      });
+
+
+    </script>
   </body>
 </html>
