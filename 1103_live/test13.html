@@ -26,6 +26,9 @@
           번호 : {{index + 1}}, 지역 : {{region.name}}, {{region.count}}개반
         </li>
       </ul>
+      <ul>
+        <li v-for="(region, index) in ssafy" :key="index"></li> <!-- key => 중복 X-->
+      </ul>
     </div>
     <script>
       new Vue({
