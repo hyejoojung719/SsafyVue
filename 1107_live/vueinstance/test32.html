@@ -18,9 +18,10 @@
         <li
           :class="{completed: todo.done}"
           :style="myStyle"
-          v-for="todo, index in todos"  
-          ::key="index"
+          v-for="todo, index in todos"
+          :key="index"
         >
+          <!-- key => for문과 같이 다님, 중복x -->
           {{todo.msg}}
           <button @click="complete(todo)" class="btn">완료</button>
         </li>

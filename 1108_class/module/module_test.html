@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module">
+    // type module 설정
+
+    // export 시 import 방법 1
+    import {name, getName, getAge} from "./module1.js"; // 여기서 가져올 수 있는 건 export한것만 가져올 수 있다. 
+    
+    console.log(name);
+    console.log(getName());
+    console.log(getAge());
+
+    // export 시 import 방법 2
+    import * as mod1 from "./module1.js"
+    console.log(mod1.getAge());
+
+    // export dafault 사용 시 import 방법  => 딱 한 번만 쓸 수 있다. 여러개 export default 불가능
+    import dict from "./module1.js";
+    console.log("export default", dict);
+   
+    </script>
+  <!-- module1.js에서 특별히 사용하고 싶은게 있다면? ES6에서는 모듈 기능 지원해서 가능하다..-->
+  
+  <!-- 모듈 장점
+      1. 원하는 것만 메모리에 올려서 쓸 수 있다.  -->
+
+</head>
+<body>
+  
+</body>
+</html>
