@@ -9,9 +9,9 @@
 import ChildComponent from "@/components/ChildComponent.vue";
 
 export default {
-  created() {
-    this.$children[0].$on("");
-  },
+  // created() {
+  //   this.$children[0].$on("");
+  // },
   // created() {
   //   // this가 달라서 아래 방법은 안 된당
   //   // this.$on("ChildEvent", () => {
